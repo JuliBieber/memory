@@ -1,9 +1,11 @@
-from PyQt6.QtCore import QSize, QTimer, pyqtSlot
+from PyQt6.QtCore import QSize, QTimer, pyqtSlot, pyqtSignal
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QLabel
 
 
 class MyLabel(QLabel):
+    card_clicked = pyqtSignal(str)
+
     def __init__(self, image_name, parent=None):
         super().__init__(parent)
 
@@ -24,9 +26,12 @@ class MyLabel(QLabel):
     def mousePressEvent(self, ev) -> None:
         if self.__is_turned:
             self.setPixmap(self.__icon_symbol)
-            self.__is_turned = False
 
             self.__timer.start(3 * 1000)
+
+            self.card_clicked.emit(self.__image_name)
+
+            self.__is_turned = False
 
     @pyqtSlot()
     def turn_card(self):

@@ -16,6 +16,8 @@ class CentralWidget(QWidget):
         self.button_7 = MyLabel("fish.jpg")
         self.button_8 = MyLabel("dog.jpg")
 
+        self.button_1.card_clicked.connect(self.handel_clicks)
+
         layout = QGridLayout(self)
         self.setLayout(layout)
 
@@ -28,3 +30,6 @@ class CentralWidget(QWidget):
         layout.addWidget(self.button_6, 2, 2)
         layout.addWidget(self.button_7, 2, 3)
         layout.addWidget(self.button_8, 2, 4)
+
+    def handel_clicks(self, image_name):
+        print(image_name)
