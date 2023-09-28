@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QLabel
 
 
 class MyLabel(QLabel):
-    card_clicked = pyqtSignal(str)
+    card_clicked = pyqtSignal()
 
     def __init__(self, image_name, parent=None):
         super().__init__(parent)
@@ -29,7 +29,7 @@ class MyLabel(QLabel):
 
             self.__timer.start(3 * 1000)
 
-            self.card_clicked.emit(self.__image_name)
+            self.card_clicked.emit()
 
             self.__is_turned = False
 
@@ -40,3 +40,11 @@ class MyLabel(QLabel):
         if not self.__is_turned:
             self.setPixmap(self.__icon_background)
             self.__is_turned = True
+
+    def get_image_name(self):
+        return self.__image_name
+
+    def set_found(self):
+        self.__timer.stop()
+
+        self.setDisabled(True)

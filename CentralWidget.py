@@ -17,6 +17,13 @@ class CentralWidget(QWidget):
         self.button_8 = MyLabel("dog.jpg")
 
         self.button_1.card_clicked.connect(self.handel_clicks)
+        self.button_2.card_clicked.connect(self.handel_clicks)
+        self.button_3.card_clicked.connect(self.handel_clicks)
+        self.button_4.card_clicked.connect(self.handel_clicks)
+        self.button_5.card_clicked.connect(self.handel_clicks)
+        self.button_6.card_clicked.connect(self.handel_clicks)
+        self.button_7.card_clicked.connect(self.handel_clicks)
+        self.button_8.card_clicked.connect(self.handel_clicks)
 
         layout = QGridLayout(self)
         self.setLayout(layout)
@@ -31,5 +38,15 @@ class CentralWidget(QWidget):
         layout.addWidget(self.button_7, 2, 3)
         layout.addWidget(self.button_8, 2, 4)
 
-    def handel_clicks(self, image_name):
-        print(image_name)
+        self.__last_card_clicked = None
+
+    def handel_clicks(self):
+        if self.__last_card_clicked is None:
+            self.__last_card_clicked = self.sender()
+        else:
+            if self.__last_card_clicked.get_image_name() == self.sender().get_image_name() and \
+                    self.__last_card_clicked is not self.sender():
+                self.sender().set_found()
+                self.__last_card_clicked.set_found()
+
+            self.__last_card_clicked = None
